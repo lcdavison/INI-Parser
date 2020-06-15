@@ -47,6 +47,7 @@ class Lexer
 		static const unsigned char LBRACK;
 		static const unsigned char RBRACK;
 		static const unsigned char EQUALS;
+		static const unsigned char NEWLINE;
 		static const unsigned char ID;
 		static const unsigned char NUM;
 

@@ -33,11 +33,14 @@ std::string Reader::read ( )
 {
 	std::stringstream ss;
 
-	char input [ 32 ];
+	char input [ 128 ];
 
-	while ( m_file.getline ( input, 32 ) )
+	while ( m_file.getline ( input, 128 ) )
 	{
-		ss << input;
+		//	Skip empty lines
+		if ( m_file.gcount ( ) == 1 && (unsigned char) ( input [ 0 ] ) == 0 ) continue;
+		
+		ss << input << "\n";
 	}
 
 	return ss.str ( );

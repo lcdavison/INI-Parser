@@ -17,16 +17,19 @@
 
 #include "lexer.h"
 
+#include <iostream>
+
 const char Lexer::END_CHAR = ( char ) -1;
 
-const unsigned char Lexer::END 	  = 0;
-const unsigned char Lexer::LBRACK = 1;
-const unsigned char Lexer::RBRACK = 2;
-const unsigned char Lexer::EQUALS = 3;
-const unsigned char Lexer::ID 	  = 4;
-const unsigned char Lexer::NUM 	  = 5;
+const unsigned char Lexer::END 	   = 0;
+const unsigned char Lexer::LBRACK  = 1;
+const unsigned char Lexer::RBRACK  = 2;
+const unsigned char Lexer::EQUALS  = 3;
+const unsigned char Lexer::NEWLINE = 4;
+const unsigned char Lexer::ID 	   = 5;
+const unsigned char Lexer::NUM 	   = 6;
 
-std::string Lexer::TAGS [ 6 ] = { "<EOF>", "[", "]", "=", "ID", "NUM" };
+std::string Lexer::TAGS [ 7 ] = { "<EOF>", "[", "]", "=", "NEWLINE", "ID", "NUM" };
 
 Lexer::Lexer ( const std::string& p_input ) : m_buffer ( p_input ), m_index ( 0 ), m_current ( p_input [ 0 ] ) { }
 
@@ -36,21 +39,23 @@ Token Lexer::next_token ( )
 	{
 		switch ( m_current )
 		{
-			case '\n':
 			case '\t':
 			case '\r':
 			case ' ':
 				WHITESPACE ( );
 				continue;
+			case '\n':
+				consume ( );
+				return Token ( "NEWLINE", Lexer::NEWLINE );
 			case '[':
 				consume ( );
-				return Token ( "[", Lexer::LBRACK );
+				return Token ( "LBRACK", Lexer::LBRACK );
 			case ']':
 				consume ( );
-				return Token ( "]", Lexer::RBRACK );
+				return Token ( "RBRACK", Lexer::RBRACK );
 			case '=':
 				consume ( );
-				return Token ( "=", Lexer::EQUALS );
+				return Token ( "EQUALS", Lexer::EQUALS );
 			default:
 				if ( is_letter ( ) ) return _ID ( );
 				if ( is_number ( ) || m_current == '.' ) return _NUM ( );
@@ -72,7 +77,7 @@ void Lexer::consume ( )
 
 void Lexer::WHITESPACE ( )
 {
-	if ( m_current == '\n' || m_current == '\t' || m_current == '\r' || m_current == ' ' ) consume ( );
+	if ( m_current == '\t' || m_current == '\r' || m_current == ' ' ) consume ( );
 }
 
 Token Lexer::_ID ( )

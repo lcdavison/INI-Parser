@@ -23,7 +23,7 @@
 
 /*
  * 	Parsing Grammar =>
- * 		entry : assignment | section
+ * 		entry : (assignment | section) ("\n" assignment | section)*
  *		assignment : ID '=' ( ID | NUM )
  *		section : '[' ID ']'
  * */
