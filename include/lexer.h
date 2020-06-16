@@ -19,6 +19,7 @@
 #define LEXER_H
 
 #include <string>
+#include <cstring>
 #include <sstream>
 
 #include "token.h"
@@ -30,13 +31,15 @@ class Lexer
 
 		Token next_token ( );	//	Get next token from input buffer
 		void consume ( );	//	Progress through input buffer
+		void match ( char );
 
 		bool is_letter ( );
 		bool is_number ( );
 
 		void WHITESPACE ( );
-		Token _ID  ( );	//	Return ID Token
-		Token _NUM ( );	//	Return NUM Token
+		Token _ID  ( );		//	Return ID Token
+		Token _STRING ( );	//	Return STRING Token
+		Token _NUM ( );		//	Return NUM Token
 
 		/*
 		 *	TOKEN TYPES
@@ -50,6 +53,7 @@ class Lexer
 		static const unsigned char NEWLINE;
 		static const unsigned char ID;
 		static const unsigned char NUM;
+		static const unsigned char STRING;
 
 		static std::string TAGS [ ];
 

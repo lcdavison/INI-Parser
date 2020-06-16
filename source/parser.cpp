@@ -7,19 +7,8 @@ Parser::Parser ( Lexer p_lexer ) : m_lexer ( p_lexer )
 
 void Parser::entry ( ) 
 {
-	if ( m_current.m_id == Lexer::LBRACK )
+	while ( m_current.m_id == Lexer::LBRACK || m_current.m_id == Lexer::ID )
 	{
-		section ( );	
-	}
-	else if ( m_current.m_id == Lexer::ID )
-	{
-		assignment ( );
-	}
-
-	while ( m_current.m_id == Lexer::NEWLINE )
-	{
-		match ( Lexer::NEWLINE );
-
 		if ( m_current.m_id == Lexer::LBRACK )
 		{
 			section ( );	
@@ -28,6 +17,8 @@ void Parser::entry ( )
 		{
 			assignment ( );
 		}
+
+		match ( Lexer::NEWLINE );
 	}
 }
 
@@ -46,6 +37,10 @@ void Parser::assignment ( )
 	if ( m_current.m_id == Lexer::ID )
 	{
 		match ( Lexer::ID );
+	}
+	else if ( m_current.m_id == Lexer::STRING )
+	{
+		match ( Lexer::STRING );
 	}
 	else if ( m_current.m_id == Lexer::NUM )
 	{

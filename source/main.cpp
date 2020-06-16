@@ -24,8 +24,8 @@
 
 /*
  * 	Parsing Grammar =>
- * 		entry : (assignment | section)? ("\n" assignment | section)*
- *		assignment : ID '=' ( ID | NUM )?
+ * 		entry : ((assignment | section)? "\n")*
+ *		assignment : ID '=' ( ID | STRING | NUM )?
  *		section : '[' ID ']'
  * */
 
@@ -45,7 +45,14 @@ int main ( int argc, char* argv [ ] )
 
 	Parser ini_parser ( ini_lexer );
 
-	ini_parser.entry ( );
+	try
+	{
+		ini_parser.entry ( );
+	}
+	catch ( std::string msg )
+	{
+		std::cout << msg << std::endl;
+	}
 
 	return 0;
 }
