@@ -20,11 +20,12 @@
 #include "token.h"
 #include "reader.h"
 #include "lexer.h"
+#include "parser.h"
 
 /*
  * 	Parsing Grammar =>
- * 		entry : (assignment | section) ("\n" assignment | section)*
- *		assignment : ID '=' ( ID | NUM )
+ * 		entry : (assignment | section)? ("\n" assignment | section)*
+ *		assignment : ID '=' ( ID | NUM )?
  *		section : '[' ID ']'
  * */
 
@@ -42,13 +43,9 @@ int main ( int argc, char* argv [ ] )
 
 	Lexer ini_lexer ( content );
 
-	Token current = ini_lexer.next_token ( );
+	Parser ini_parser ( ini_lexer );
 
-	while ( current.m_id != Lexer::END )
-	{
-		std::printf ( "Token : %+10s | %-10s\n", Lexer::TAGS [ current.m_id ].c_str ( ), current.m_text.c_str ( ) );
-		current = ini_lexer.next_token ( );
-	}
+	ini_parser.entry ( );
 
 	return 0;
 }
