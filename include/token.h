@@ -26,7 +26,7 @@ struct Token
 	Token ( const std::string&, int );
 	Token ( std::string&&, int );
 
-	std::string 	m_text;
-	int 		m_id;
+	std::string 	m_text;		//	String representing token
+	int 		m_id;		//	Id representing token type
 };
 #endif

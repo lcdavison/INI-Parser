@@ -29,13 +29,19 @@ class Reader
 		Reader ( std::string&& );
 		~Reader ( );
 
+		/*
+		 *	Reads the content of a file into a string object.
+		 * */
 		std::string read ( );
 
+		/*
+		 *	Determines whether the file is currently open.
+		 * */
 		bool is_open ( );
 
 	private:
 
-		std::string 	m_filename;
-		std::ifstream 	m_file;
+		std::string 	m_filename;	//	The name of the file
+		std::ifstream 	m_file;		//	The input file stream
 };
 #endif

@@ -29,17 +29,52 @@ class Lexer
 	public:
 		Lexer ( const std::string& );
 
-		Token next_token ( );	//	Get next token from input buffer
-		void consume ( );	//	Progress through input buffer
+		/*
+		 * 	Returns the next token from the input buffer.
+		 * */
+		Token next_token ( );
+
+		/*
+		 *	Progresses marker through the input buffer, 
+		 *	updates current character.
+		 * */
+		void consume ( );
+
+		/*
+		 *	Matches a the current character with an expected character.
+		 * */
 		void match ( char );
 
+		/*
+		 *	Performs a test checking for alphabetical characters.
+		 * */
 		bool is_letter ( );
+
+		/*
+		 *	Performs a test checking for numerical characters.
+		 * */
 		bool is_number ( );
 
+		/*
+		 *	Lexical rule consuming any whitespace characters.
+		 *	These include tabs, return carriages, and spaces.
+		 * */
 		void WHITESPACE ( );
-		Token _ID  ( );		//	Return ID Token
-		Token _STRING ( );	//	Return STRING Token
-		Token _NUM ( );		//	Return NUM Token
+
+		/*
+		 *	Lexical rule for identifiers.
+		 * */
+		Token _ID  ( );
+
+		/*
+		 *	Lexical rule for strings.
+		 * */
+		Token _STRING ( );
+
+		/*
+		 *	Lexical rule for numbers.
+		 * */
+		Token _NUM ( );
 
 		/*
 		 *	TOKEN TYPES
@@ -59,7 +94,7 @@ class Lexer
 
 	private:
 
-		std::string	m_buffer;	//	Input string
+		std::string	m_buffer;	//	Input character buffer
 		unsigned int 	m_index;	//	Current buffer index
 		char 		m_current;	//	Current character
 };
