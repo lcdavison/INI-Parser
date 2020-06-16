@@ -29,9 +29,18 @@
  *		section : '[' ID ']'
  * */
 
+//	TODO : File extension check
+//	TODO : Internal representation
+
 int main ( int argc, char* argv [ ] )
 {
-	Reader reader ( "test.ini" );
+	if ( !argv [ 1 ] )
+	{
+		std::cerr << "Error : File not provided\n";
+		return 1;
+	}
+
+	Reader reader ( argv [ 1 ] );
 
 	if ( !reader.is_open ( ) )
 	{
